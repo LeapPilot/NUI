@@ -1,0 +1,94 @@
+/*
+	author: Willi Wolff;
+	email:	wolff.willi@googlemail.com;
+	date:	April 27, 2014;
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+}
+
+body {
+	height: 100%;
+}
+
+a.tile {
+	color: #444;
+	display: block;
+	height: 100%;
+	position: absolute;
+	text-align: center;
+	text-decoration: none;
+	width: 33.33%;
+	z-index: 1;
+}
+
+a.tile > h1 {
+	font-weight: 300;
+}
+
+a.tile:hover,
+a.tile:active,
+a.tile:focus {
+	-webkit-box-shadow: 0px 0px 11px 0px rgba(50, 50, 50, 1);
+	-moz-box-shadow:    0px 0px 11px 0px rgba(50, 50, 50, 1);
+	box-shadow:         0px 0px 11px 0px rgba(50, 50, 50, 1);
+	z-index: 2;
+}
+
+a.config {
+	background: #BADA55 url("../imgs/config.svg") no-repeat 50% 45%;
+	left: 0;
+}
+
+a.config:hover,
+a.config:active,
+a.config:focus {
+	background: #BADA55 url("../imgs/config_hover.svg") no-repeat 50% 45%;
+	left: 0;
+}
+
+a.pilot {
+	background: lightblue url("../imgs/pilot.svg") no-repeat 50% 45%;
+	left: 33.33%;
+}
+
+a.pilot:hover,
+a.pilot:active,
+a.pilot:focus {
+	background: lightblue url("../imgs/pilot_hover.svg") no-repeat 50% 45%;
+}
+
+a.media {
+	background: orange url("../imgs/media.svg	") no-repeat 50% 45%;
+	left: 66.66%;
+}
+
+a.media:hover,
+a.media:active,
+a.media:focus {
+	background: orange url("../imgs/media_hover.svg") no-repeat 50% 45%;
+	left: 66.66%;
+}
+
+a:hover, a:focus, a:active {
+	color: #fff;
+}
+
+div.speechRecognition {
+	color: #FFF;
+	font-size: 25px;
+	text-align: center;
+	padding-top: 20px;
+	font-family: arial;
+	margin-top: -70px;
+	margin-left: 10%;
+	position: absolute;
+	background-color: #008500;
+	min-height: 50px;
+	width: 80%;
+	opacity: .7;
+	z-index: 9999;
+}

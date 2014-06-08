@@ -1,0 +1,360 @@
+	  <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+	  <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
+
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-wide.css" />
+		<link rel="stylesheet" href="css/config_style.css" />
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+
+		<script>
+			$(function() {
+			//Altitude Slider Initialization
+			  $( "#altitudeSlider" ).slider({
+			    orientation: "vertical",
+			    range: "max",
+			    min: 3,
+			    max: 100,
+			    value: 3,
+			    slide: function( event, ui ) {
+			      $( "#altitudeValue" ).text( ui.value + " m");
+			      flightSettings.basic["Altitude"] = ui.value;
+
+			      faye.publish("/drone/config", { // sends a message to /drone/ with config for max. altitude
+					key: "control:altitude_max",
+					value: "\"" + (ui.value * 1000) + "\""	//100.000 are about 100m from ground
+				  });
+			    }
+			  });
+
+			  $("#altitudeValue").text( $( "#altitudeSlider" ).slider( "value" ) );
+			  $("#altitudeSlider > div").addClass("fa fa-angle-double-up");
+			  $("#altitudeSlider > div").css({
+			  		"fontSize": 		"5em",
+			  		"color": 		"#E2ED80",
+			  		"lineHeight": 	"2.5"
+			  });
+
+			//Vertical Speed Slider Initialization
+			  $( "#vspeedSlider" ).slider({
+			    orientation: "vertical",
+			    range: "max",
+			    min: 200,
+			    max: 2000,
+			    value: 700,
+			    slide: function( event, ui ) {
+			      $( "#vspeedValue" ).text( ui.value + " mm/s" );
+			      flightSettings.basic["VSpeed"] = ui.value;
+
+			      faye.publish("/drone/config", { 
+					key: "control:control_vz_max",
+					value: "\"" + ui.value	+ "\""
+				  });
+			    }
+			  });
+			  $( "#vspeedValue" ).text( $( "#vspeedSlider" ).slider( "value" ) );
+			  $("#vspeedSlider > div").addClass("fa fa-resize-vertical");
+			  $("#vspeedSlider > div").css({
+			  		"fontSize": 		"5em",
+			  		"color": 		"#C5E7F3",
+			  		"lineHeight": 	"2.5"
+			  });
+
+			//Rotation Speed Slider Initialization
+			  $( "#rotspeedSlider" ).slider({
+			    orientation: "vertical",
+			    range: "max",
+			    min: 40,
+			    max: 350,
+			    value: 99,
+			    slide: function( event, ui ) {
+			      $( "#rotspeedValue" ).text( ui.value + " °/s");
+			      flightSettings.basic["RSpeed"] = ui.value;
+
+			      faye.publish("/drone/config", { 
+					key: "control:control_vz_max",
+					value: "\"" + ui.value + "\""
+				  });
+			    }
+			  });
+			  $( "#rotspeedValue" ).text( $( "#rotspeedSlider" ).slider( "value" ) );
+			  $("#rotspeedSlider > div").addClass("fa fa-repeat");
+			  $("#rotspeedSlider > div").css({
+			  		"fontSize": 		"5em",
+			  		"color": 		"#FFBC40",
+			  		"lineHeight": 	"2.5"
+			  });
+
+			  $( "#tiltangleSlider" ).slider({
+			    orientation: "vertical",
+			    range: "max",
+			    min: 5,
+			    max: 30,
+			    value: 12,
+			    slide: function( event, ui ) {
+			      $( "#tiltangleValue" ).text( ui.value + " °");
+			      flightSettings["basic"].TAngle = ui.value;
+
+			      faye.publish("/drone/config", { // sends a message to /drone/ with config key and value to set
+					key: "control:euler_angle_max",
+					value: "\"" + ui.value / 100 + "\"" //this parameter is a positive floating-point value between 0 and 0:52
+				  });
+			    }
+			  });
+			  $( "#tiltangleValue" ).text( $( "#tiltangleSlider" ).slider( "value" ) );
+			  $("#tiltangleSlider > div").addClass("fa fa-adn");
+			  $("#tiltangleSlider > div").css({
+			  		"fontSize": 		"5em",
+			  		"color": 		"#FFFF40",
+			  		"lineHeight": 	"2.5"
+			  });
+			});
+
+			$(document).ready(function() {
+				var faye = new Faye.Client("/faye", { timeout: 60 });
+				
+				$('section').css("minHeight", $(window).height());
+
+				$('#nav > ul > li > a').click(function() {
+					$('.nav_a_active').removeClass('nav_a_active');
+					$(this).addClass('nav_a_active');
+				});	
+
+			    $("#checkboxFlipEnabled > label[for='OutDoorFlightCheckBox']").click(function(){
+		        	if (!$(this).siblings("input[type='checkbox']").is(':checked')) {
+		        		flightSettings.basic["OutDoorFlight"] = 1;
+
+		        		flightSettings.basic["Altitude"] = 3;
+			        	$( "#altitudeSlider" ).slider({value: 3});
+			        	$( "#altitudeValue" ).text( "3 m");
+
+						flightSettings.basic["VSpeed"] = 1000;
+						$( "#vspeedSlider" ).slider({value: 1000});
+						$( "#vspeedValue" ).text( "1000 mm/s");
+
+						flightSettings.basic["RSpeed"] = 200;
+						$( "#rotspeedSlider" ).slider({value: 200});
+						$( "#rotspeedValue" ).text( "200 °/s");
+
+						flightSettings.basic["TAngle"] = 20;
+						$( "#tiltangleSlider" ).slider({value: 20});
+						$( "#tiltangleValue" ).text( "20 °");
+		        	} else {
+		        		flightSettings.basic["OutDoorFlight"] = 0;
+
+		        		flightSettings.basic["Altitude"] = 3;
+			        	$( "#altitudeSlider" ).slider({value: 3});
+			        	$( "#altitudeValue" ).text( "3 m");
+
+						flightSettings.basic["VSpeed"] = 700;
+						$( "#vspeedSlider" ).slider({value: 700});
+						$( "#vspeedValue" ).text( "700 mm/s");
+
+						flightSettings.basic["RSpeed"] = 99;
+						$( "#rotspeedSlider" ).slider({value: 99});
+						$( "#rotspeedValue" ).text( "99 °/s");
+
+						flightSettings.basic["TAngle"] = 12;
+						$( "#tiltangleSlider" ).slider({value: 12});
+						$( "#tiltangleValue" ).text( "12 °");
+		        	}
+			    });
+
+	  			$("#checkboxFlipEnabled > label[for='OutDoorHullCheckBox']").click(function() {
+	  				if (!$(this).siblings("input[type='checkbox']").is(':checked')) {
+		        		flightSettings.basic["OutDoorHull"] = 1;
+		        	} else {
+		        		flightSettings.basic["OutDoorHull"] = 0;
+		        	}
+	  			});
+
+	  			$("#checkboxFlipEnabled > label[for='FlipEnabled']").click(function() {
+	  				if (!$(this).siblings("input[type='checkbox']").is(':checked')) {
+	  					flightSettings.advanced["FlipEnabled"] = 1;
+	  				} else {
+	  					flightSettings.advanced["FlipEnabled"] = 0;
+	  				}
+	  			});
+
+	  			$("#orientation > label").click(function() {
+	  				var direction = $(this).attr("for");
+
+	  				flightSettings.advanced["FlipOrientation"] = direction;
+	  			});
+			});
+
+			$(window).resize(function() {
+				$('section').css("minHeight", $(window).height());
+			});
+		</script>
+
+		<div id="header" class="skel-panels-fixed">
+			<div class="top">
+				<nav id="nav">
+					<ul>
+						<li>
+							<a href="#basic" id="basic-link">
+								<span class="fa fa-wrench">Basic Settings</span>
+							</a>
+						</li>
+						<li>
+							<a href="#advanced" id="advanced-link">
+								<span class="fa fa-gears">Advanced Settings</span>
+							</a>
+						</li>
+					
+						<li>
+							<a href="#status" id="status-link">
+								<span class="fa fa-warning">Status</span>
+							</a>
+						</li>
+						<li>
+							<a href="#about" id="about-link">
+								<span class="fa fa-info">About Us</span>
+							</a>
+						</li>
+						<li>
+							<a href="" id="back-link">
+								<span class="fa fa-arrow-circle-o-left">Landing Page</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<div id="main">
+				<section id="basic" class="one">
+					<div class="container">
+						<header>
+							<h2>Basic Settings</h2>
+							<sub>Flight Behaviour</sub>
+						</header>
+						<article class="altitude">
+							<div class="slider" id="altitudeSlider"></div>
+							<label for="altitudeValue">Altitude</label>
+							<p id="altitudeValue"></p>
+						</article>
+
+						<article class="vspeed">
+							<div class="slider" id="vspeedSlider"></div>
+							<label for="vspeedValue">Vertical Speed</label>
+							<p id="vspeedValue"></p>
+
+						</article>
+
+						<article class="rotspeed">
+							<div class="slider" id="rotspeedSlider"></div>
+							<label for="rotspeedValue">Rotation Speed</label>
+							<p id="rotspeedValue"></p>
+						</article>
+
+						<article class="tiltangle">
+							<div class="slider" id="tiltangleSlider"></div>
+							<label for="tiltangleValue">Tilt Angle</label>
+							<p id="tiltangleValue"></p>
+						</article>	
+
+						<article class="checkbox">
+							<span id="flipE">Outdoor Flight:</span>
+							<div id="checkboxFlipEnabled" class="checkboxFlipEnabled">
+								<input type="checkbox" id="OutDoorFlightCheckBox" name="OutDoorFlightCheckBox"/>
+								<label for="OutDoorFlightCheckBox"></label>
+							</div>
+						</article>
+
+						<article class="checkbox">
+							<span id="flipE">Outdoor Protection:</span>
+							<div id="checkboxFlipEnabled" class="checkboxFlipEnabled">
+								<input type="checkbox" id="OutDoorHullCheckBox" name="OutDoorHullCheckBox"/>
+								<label for="OutDoorHullCheckBox"></label>
+							</div>
+						</article>	
+					</div>
+				</section>
+				
+				<section id="advanced" class="two">
+					<div class="container">
+				
+						<header>
+							<h2>Advanced Settings</h2>
+							<sub>Personal Settings</sub>
+						</header>
+
+						<article>
+							<span id="flipE">Flip Enabled:</span>
+							<div id="checkboxFlipEnabled">
+								<input type="checkbox" id="FlipEnabled" name="FlipEnabled"/>
+								<label for="FlipEnabled"></label>
+							</div>
+						</article>
+						
+						<article id="orientation">
+							<span id="flipO">Flip Orientation:</span>
+
+							<input type="radio" id="front" name="fliporientation" />
+							<label for="front" class="fa fa-chevron-up"><span>Front</span></label>
+							<input type="radio" id="back" name="fliporientation" />
+							<label for="back" class="fa fa-chevron-down"><span>Back</span></label>
+							<input type="radio" id="left" name="fliporientation" checked />
+							<label for="left" class="fa fa-chevron-left"><span>Left</span></label>
+							<input type="radio" id="right" name="fliporientation" />
+							<label for="right" class="fa fa-chevron-right"><span>Right</span></label>
+						</article>
+
+						<article>
+							<span id="flipE">Absolute Mode:</span>
+							<div id="checkboxFlipEnabled">
+								<input type="checkbox" id="AbsoluteMode" name="AbsoluteMode"/>
+								<label for="AbsoluteMode"></label>
+							</div>
+						</article>
+					</div>
+				</section>
+		
+				<section id="status" class="four">
+					<div class="container">
+
+						<header>
+							<h2>Status</h2>
+						</header>
+					</div>
+				</section>
+
+				<section id="about" class="five">
+					<div class="container">
+						<header>
+							<h2>About Us</h2>
+						</header>
+
+						<article class="description">
+							<p>This interface presents the final result of our study work, which focuses on the development of a natural user interface based on new hardware possibilities. Hence, we lay stress on comfortable use of LEAP Motion to easily control the AR-Drone 2.0.</p>
+
+							<span>Software:</span>
+							<ul class="aboutInfo">
+								<li>GitHub - <a href="https://github.com/liebeskind/leapdrone/" target="_blank">LiebesKind leapdrone</a></li>
+								<li>Airspace: <a href="https://airspace.leapmotion.com/apps/touchless-for-windows/windows" target="_bank">Leap Motion Touchless App</a></li>
+								<li>Speech Recognition Library: <a href="https://www.talater.com/annyang/" target="_blank">Annyang</a></li>
+							</ul>
+							
+							<span>Developer:</span>
+							<ul class="aboutInfo">
+								<li>Tunahan Pece: <a href="mailto:tunahan.pece@de.ibm.com" target="_blank">tunahan.pece@de.ibm.com</a></li>
+								<li>Willi Wolff: <a href="mailto:willi.wolff@de.ibm.com" target="_blank">willi.wolff@de.ibm.com</a></li>
+							</ul>
+						</article>
+						<article>
+							
+						</article>
+					</div>
+				</section>
+		
+		</div>
+
+		<div id="footer">
+				<div class="copyright">
+					<p>&copy; 2014 | All rights reserved.</p>
+					<ul class="menu">
+						<li>Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a></li>
+					</ul>
+				</div>
+		</div>

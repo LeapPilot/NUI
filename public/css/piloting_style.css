@@ -1,0 +1,167 @@
+/*
+	author: Tunahan Pece;
+	email:	pece41@googlemail.com;
+	date:	May 30, 2014;
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	height: 100%;
+	color: #444;
+}
+
+.piloting_wrapper{
+	display: flex;
+    height: 100%;
+	min-height: 600px;
+    position: absolute;
+    width: 100%;
+	min-width: 1238px;
+}
+
+#dronestream{
+	width: 100%;
+	overflow: hidden;
+	align-self: center;
+	text-align: center;
+}
+
+i.flat{
+	color: lightblue;
+}
+
+i.metal{
+	color: #bada55;
+}
+
+#dronestream canvas {
+	width: 100%;
+}
+
+#command_console{
+	background: url("../imgs/metal_texture.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: #ADD8E6 #ADD8E6 -moz-use-text-color;
+    border-image: none;
+    border-style: solid solid none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-width: 2px 2px medium;
+	bottom: 0;
+    height: 300px;
+    left: 300px;
+	opacity: 0.9;
+	overflow: hidden;
+    position: absolute;
+    right: 300px;
+	min-width: 830px;
+}
+
+#command_console .controls_center{
+	float: left;
+    height: 100%;
+    position: relative;
+    width: 65%;
+}
+
+#command_console .controls_right{
+	float: right;
+    height: 100%;
+    position: relative;
+    width: 35%;
+}
+
+#clockwise{
+	float: right;
+}
+
+#counterClockwise{
+	float: left;
+}
+
+.highlight{
+	color: red;
+}
+
+h4.piloting_header{
+	font-size: 23px;
+	margin: 0;
+	padding: 0;
+}
+
+.metal {
+	color: #888;
+}
+
+#command_console.metal{
+	color: #bada55 !important;
+}
+
+.metal h4{
+	color: #bada55 !important;
+}
+
+.upper_section{
+	height: 140px;
+	margin: 0;
+}
+
+.style_changer.metal, .controls_button.metal{
+	width: 95px;
+	background: transparent;
+	border: 2px solid #bada55;
+	color: #bada55;
+}
+
+.style_changer.metal:hover, .controls_button.metal:hover{
+	border-color: lightblue;
+	cursor: pointer;
+}
+
+.style_changer.flat, .controls_button.flat{
+	width: 95px;
+	background: transparent;
+	border: 2px solid #888;
+	color: #888;
+}
+
+.style_changer.flat:hover, .controls_button.flat:hover{
+	border-color: #fff;
+	cursor: pointer;
+}
+
+.controls_label{
+	color: #888;
+	display: block;
+	font-size: 14px;
+	height: 25px;
+}
+
+.quick_commands_bar{
+	float: left;
+	width: inherit;
+}
+
+.analogs{
+	float: right;
+	width: inherit;
+}
+
+#command_console.flat {
+	background: lightblue !important;
+	border: none !important;
+	border-radius: 0 !important;
+}
+
+#command_console table {
+	margin: 0;
+}
+
+#command_console td {
+	text-align: center;
+	font-size: 50px;
+	padding: 20px 0;
+}

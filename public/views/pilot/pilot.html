@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AR-Drone LeapPilot</title>
+  <link rel="stylesheet" href="../../css/piloting_style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../../css/style.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8" />
+</head>
+<body>
+	<script src="../../bower_components/jquery/jquery.js"></script>
+	<script src="../../bower_components/justgage.1.0.1.min.js"></script>
+	<script src="../../bower_components/raphael.2.1.0.min.js"></script>
+	<script src="../../../node_modules/faye/browser/faye-browser.js"></script>
+	<script src="../../../node_modules/leapjs/leap.js"></script>
+	<script src="../../client.js"></script>
+	<script src="../../js/custom_piloting.js"></script>
+	<script src="../../leap.js"></script>
+	
+	<script src="../../../node_modules/dronestream/dist/nodecopter-client.js"></script>
+	<script>
+		$(function () {
+			function startArDRoneStream() {
+				new NodecopterStream(document.getElementById("dronestream"), {port: 3001});
+			}
+			startArDRoneStream();
+		})
+	</script>
+    <div class="piloting_wrapper">
+		<div id="dronestream"><i class="fa fa-spinner fa-spin flat"></i></div>
+		<div id="command_console" class="flat">
+			<section class="controls_center">
+				<table>
+					<tr>
+						<td></td>
+						<td class="control_element"><i id="front" class="fa fa-chevron-up"></i></td>
+						<td></td>
+						<td class="control_element"><i id="up" class="fa fa-angle-double-up"></i></td>
+					</tr>
+					<tr>
+						<td class="control_element"><i id="left" class="fa fa-chevron-left"></i></td>
+						<td class="control_element"><i id="counterClockwise" class="fa fa-angle-double-left"></i><i id="clockwise" class="fa fa-angle-double-right"></i></td>
+						<td class="control_element"><i id="right" class="fa fa-chevron-right"></i></td>
+						<td><h4 class="piloting_header" class="control_element">LeapPilot</h4></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td class="control_element"><i id="back" class="fa fa-chevron-down"></i></td>
+						<td></td>
+						<td class="control_element"><i id="down" class="fa fa-angle-double-down"></i></td>
+					</tr>
+				</table>
+			</section>
+			<section class="controls_right">
+				<div class="quick_commands_bar">
+					<section class="upper_section">
+						<label class="controls_label">Change Style to:</label>
+						<button class="style_changer flat">Metal</button>
+						<label class="controls_label">Take a:</label>
+						<button class="controls_button picture flat">Picture</button>
+					</section>
+					<label class="controls_label">Quick Commands:</label>
+					<button id="takeoff_button" class="controls_button flat">Take Off</button>
+					<button id="land_button" class="controls_button flat">Land</button>
+				</div>
+				<div class="analogs">
+					<svg id="batteryGaugeCanvas" width="200" height="140" style="float: right;"></svg>
+					<svg id="speedGaugeCanvas" width="200" height="140" style="float: right;"></svg>
+				</div>
+			</section>
+		</div>
+    </div>
+    
+</body>
+</html>

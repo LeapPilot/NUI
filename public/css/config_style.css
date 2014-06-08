@@ -1,0 +1,267 @@
+/*
+	author: Willi Wolff;
+	email:	wolff.willi@googlemail.com;
+	date:	May 4, 2014;
+*/
+
+#nav > ul > li > a:hover,
+#nav > ul > li > a:active,
+#nav > ul > li > a:focus {
+	background: rgba(0,0,0,0.15);
+	box-shadow: inset 0 0 0.25em 0 rgba(0,0,0,0.125);
+	color: #fff;
+}
+
+.nav_a_active {
+	color: green!important;
+}
+
+.nav_a_active > span {
+	color: green;
+}
+
+#basic article {
+	width: 250px;
+	float: left;
+	margin: 50px 0px 100px 40px;
+}
+
+#basic article > div {
+	height: 300px;
+}
+
+#basic article > p {
+	margin: -80px auto;
+	width: 112px;
+}
+
+div.ui-slider-range, div.slider {
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+article.altitude {
+	margin-left: 40px!important;
+}
+
+article.altitude > label {
+	color: #BADA55;
+}
+
+article.altitude > div.slider {
+	background-color: #BADA55;
+	border: 1px solid #BADA55;
+}
+
+article.altitude > div.slider:hover,
+article.altitude > div.slider > div:hover {
+  cursor: pointer;
+}
+
+article.vspeed > div.slider {
+	background-color: lightblue;
+	border: 1px solid lightblue;
+}
+
+article.vspeed > label {
+	color: lightblue;
+}
+
+article.rotspeed > div.slider {
+	background-color: orange;
+	border: 1px solid orange;
+}
+
+article.rotspeed > label {
+	color: orange;
+}
+
+article.tiltangle > div.slider {
+	background-color: yellow;
+	border: 1px solid yellow;
+	overflow: hidden;
+}
+
+article.tiltangle > label {
+	color: #A6A600;
+}
+
+article > div.slider > div {
+	background-color: #FFF;
+}
+
+#basic p.field {
+  float: left;
+  margin-top: 50px;
+  width: 50%;
+}
+
+#basic p.field > span {
+  float: left;
+  margin-left: 40px;
+  margin-right: 100px;
+}
+
+#basic div.checkboxFlipEnabled {
+  top: -40px!important;
+  margin-left: 200px;
+}
+
+#basic article.checkbox {
+  margin-right: 20%;
+}
+
+.cb-enable, .cb-disable, .cb-enable span, .cb-disable span { background: url(../imgs/switch.gif) repeat-x; display: block; float: left; }
+.cb-enable span, .cb-disable span { line-height: 30px; display: block; background-repeat: no-repeat; font-weight: bold; }
+.cb-enable span { background-position: left -90px; padding: 0 10px; }
+.cb-disable span { background-position: right -180px;padding: 0 10px; }
+.cb-disable.selected { background-position: 0 -30px; }
+.cb-disable.selected span { background-position: right -210px; color: #fff; }
+.cb-enable.selected { background-position: 0 -60px; }
+.cb-enable.selected span { background-position: left -150px; color: #fff; }
+.switch label { cursor: pointer; }
+.switch input { display: none; }
+
+#advanced > div > article > input[type=radio] {
+    display: none;
+    float: left;
+}
+
+#advanced > div > article > input + label::before {
+    /*content: '';*/
+    display: inline-block;
+    border: 1px solid #333;
+    background-color: #333;
+    color: #FFF;
+    line-height: 50px;
+
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#advanced > div > article > input:checked + label::before {
+    background-color: #BADA55;
+    color: #FFF;
+    box-shadow: inset 0px 0px 10px #728E1C;
+}
+
+#advanced > div > article > input + label > span {
+    color: #FFF;
+}
+
+#advanced > div > article > input + label::before {
+    width: 200px;
+    height: 100px;
+}
+
+#advanced > div > :not(#checkboxFlipEnabled) > label {
+  margin-left: -7px;
+}
+
+#advanced > div > article > label:hover {
+  cursor: pointer;
+}
+
+#advanced > div > article > label > span {
+  position: absolute;
+  margin-left: -125px;
+  line-height: 50px;
+  margin-top: 50px;
+}
+
+#advanced #flipO, #advanced #flipE {
+  line-height: 100px;
+  height: 100px;
+  display: block;
+  float: left;
+  width: 220px;
+}
+
+#advanced input[type="checkbox"] {
+  width: 50px;
+  height: 100px;
+}
+
+#checkboxFlipEnabled input[type=checkbox]:checked + label {
+  background: #BADA55;
+}
+
+#checkboxFlipEnabled {
+  width: 40px;
+  height: 40px!important;
+  background: #ddd;
+  top: 25px;
+  left: 50%;
+
+  border-radius: 100%;
+  position: relative;
+  -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+#checkboxFlipEnabled label {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+
+  background: #333;
+
+  -webkit-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+  box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+#checkboxFlipEnabled > input {
+  display: none;
+}
+
+#about article.description {
+  padding: 20px;
+  text-align: left;
+}
+
+#about article.description > span {
+  font-style: italic;
+}
+
+#about ul.aboutInfo {
+  list-style-type: none;
+  margin-bottom: 250px;
+}
+
+#about ul.aboutInfo > li {
+  border-bottom: 1px solid #DDD;
+  float: left;
+  text-align: left;
+  text-indent: 30px;
+  height: 70px;
+  width: 49%;
+}
+
+#about ul.aboutInfo > li > a {
+  color: #200772;
+  line-height: 70px;
+}
+
+#about ul.aboutInfo > li:nth-child(odd) {
+  border-right: 1px solid #ddd;
+}

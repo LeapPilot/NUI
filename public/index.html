@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AR-Drone Leap Pilot Overview</title>
+  <link rel="icon" href="imgs/favicon.png" type="image/png" />
+
+  <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.10.4.js"></script>
+  <script type="text/javascript" src="js/annyang.min.js"></script>
+  
+  <script type="text/javascript" src="js/init_annyang.js"></script>
+  <script type="text/javascript" src="js/config_json_object.js"></script>
+  
+  <script src="../node_modules/faye/browser/faye-browser.js"></script>
+
+  <link rel="stylesheet" href="css/main_style.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8" />
+
+  <script type="text/javascript">
+    //var drone = require('../ar-drone');
+
+    //drone.config();
+  </script>
+
+  <script>
+    $(window).load(function() {
+        console.log("Init");
+        init_annyang();
+    });
+
+    $(document).ready(function() {
+        //Initialization
+        flightSettings.basic["Altitude"] = 3;
+        flightSettings.basic["VSpeed"] = 700;
+        flightSettings.basic["RSpeed"] = 99;
+        flightSettings.basic["TAngle"] = 12;
+        flightSettings.basic["OutDoorFlight"] = 0;
+        flightSettings.basic["OutDoorHull"] = 0;
+        flightSettings.advanced["FlipEnabled"] = 0;
+        flightSettings.advanced["FlipOrientation"] = "left";
+
+        layout();
+        //init_annyang();
+
+        $('a.config').click(function() {
+            $('div.wrapper').load("views/config/config.html");
+        });
+
+        $('a.pilot').click(function() {
+            $('div.wrapper').load("views/pilot/pilot.html");
+        });
+
+        $('a.media').click(function() {
+            $('div.wrapper').load("views/media/media.html");
+        });
+    });
+
+    $(window).resize(function() {
+      layout();
+    });  
+
+    function layout (){
+      $('a.tile').css({
+          "height" : $(window).height() + "px"
+      });
+
+      $('a.tile > h1').css('marginTop', ($(window).height() - 100) + "px");
+    }
+  </script>
+</head>
+
+<body>
+    <div class="speechRecognition"></div>
+
+    <div class="wrapper">
+        <a href="#" class="tile config">
+            <h1>Configuration</h1>
+        </a>
+
+        <a href="#" class="tile pilot">
+            <h1>Piloting</h1>
+        </a>
+
+        <a href="#" class="tile media">
+            <h1>Media</h1>
+        </a>
+    </div>
+</body>
+</html>
