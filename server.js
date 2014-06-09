@@ -3,17 +3,40 @@
   express = require("express");
   path = require("path");
   
+  
+  
   //enables easy client server communication
   faye = require('faye');
   
   // enables communication with drone in javascript
   drone = require("ar-drone").createClient();
   
+  // for video rendering
+  require("dronestream").listen(3001); 
+  
+  /*
+   *	Video capturing
+   */
+  /*
+  var PaVEParser = require('./node_modules/ar-drone/lib/video/PaVEParser'); 
+  var output = require('fs').createWriteStream('./vid.h264');
+  var video = drone.getVideoStream();
+  var parser = new PaVEParser();
+  parser
+  .on('data', function(data) {
+    output.write(data.payload);
+  })
+  .on('end', function() {
+    output.end();
+  });
+
+  video.pipe(parser);
+  */
+  
   //handles gesture to command translation
   leap = require('leapjs');
   
-  // for video rendering
-  require("dronestream").listen(3001); 
+
   
   app = express();
   app.configure(function () {
@@ -33,6 +56,8 @@
   bayeux.attach(server); // attached to server; will handle all requests to paths matching the mount path and delegate all other requests to handlers.
 
   client = new faye.Client("http://localhost:" + (app.get("port")) + "/faye", {}); // sets up new client at environmental port that accesses the server at the /faye mount 
+  
+  
   
   /*
    *	Subscribe to navigational commands published by the client
@@ -65,4 +90,6 @@
   setInterval(function(){
     	client.publish("/drone/info", { battery: drone.battery() , alt: drone._lastAltitude });
     }, 5000);
+	
+	
 	

@@ -18,6 +18,16 @@ $(document).ready(function() {
 	});
 	
 	/*
+	 *	Save picture
+	 */
+	$(".picture").click(function(){
+		var canvas = document.getElementById('drone_canvas');
+		var image = canvas.toDataURL("image/jpeg");
+		window.location.href = image;
+		console.log(image);
+	});
+	
+	/*
 	 *	"Takeoff"- Button Command
 	 */
 	$("#takeoff_button").click(function(){
@@ -37,9 +47,9 @@ $(document).ready(function() {
 	
 	
 	faye.subscribe("/drone/info", function (d) {
-      console.log(d);
 	  return updateGauges(d.battery, d.alt);
     });
+
 	
 	var batteryGauge;
 		var speedGauge;

@@ -57,13 +57,14 @@
     if (event.keyCode === 32 || event.keyCode === 13 || event.keyCode === 46) {
 		return faye.publish("/drone/drone", { action: action }); // sends a message to /drone/ with details of the action and speed
 	} else {
+		
 		/*
 		 *	Highlight the control element on piloting view depending on recognized action
 		 */
 		var $control_element = $("#" + action).addClass('highlight');
 		setTimeout(function() {
 			$control_element.removeClass('highlight');
-		}, 500);
+		}, 200);
 		
       return faye.publish("/drone/move", { // sends a message to /drone/ with details of the action and speed
         action: action,

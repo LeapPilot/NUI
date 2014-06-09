@@ -2,8 +2,6 @@ Introduction
 =======================
 This pilot combines different GitHub projects and enhances some of them. 
 
-
-
 Description
 =======================
 
@@ -26,4 +24,3 @@ Express for web app deployment
 Faye for publishing and subscribing between leap, server and drone
 Leap.js for converting leap motions into javascript
 jQuery for browser displays and accessing keypresses for optional keyboard controls
-
